@@ -1,0 +1,20 @@
+<script type="text/javascript">
+  function submitWidget(name) {
+    document.getElementsByTagName("body")[0].remove();
+    var data = ["submitWidget", [name]];
+    top.postMessage(JSON.stringify(data), "*");
+  };
+  function closeWidget(name) {
+    document.getElementsByTagName("body")[0].remove();
+    var data = ["closeWidget", [name]];
+    top.postMessage(JSON.stringify(data), "*");
+  };
+  var elements = document.querySelectorAll("[data-widget='close']");
+  for (index = elements.length - 1; index >= 0; index--) {
+    elements[index].onclick = function(){ closeWidget("<%= widget.name %>") };
+  }
+  var elements = document.querySelectorAll("[data-widget='submit']");
+  for (index = elements.length - 1; index >= 0; index--) {
+    elements[index].onsubmit = function(){ submitWidget("<%= widget.name %>"); return false; };
+  }
+</script>

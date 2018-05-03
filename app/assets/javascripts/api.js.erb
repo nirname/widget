@@ -1,0 +1,101 @@
+widget_api.sayHello = function() {
+  console.log("Hello");
+};
+
+widget_api.showWidget = function(name) {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.async = true;
+  // script.on_load = function() {
+  //   script.remove();
+  //   delete script;
+  // };
+  script.src = "<%= ENV['WIDGET_API_URL'] %>/widgets/" + name + ".js";
+  var target = document.getElementsByTagName("head")[0];
+  target.insertBefore(script, target.firstChild);
+  // widget_api.fireCallback("showWidget", {name: name});
+  return name
+};
+
+widget_api.closeWidget = function(name) {
+  var elements = document.getElementsByName(name)
+  // var elements = document.getElementsByTagName('iframe')
+  var index;
+  for (index = elements.length - 1; index >= 0; index--) {
+    elements[index].parentNode.removeChild(elements[index]);
+  }
+  widget_api.fireCallback("closeWidget", {name: name});
+  return name
+};
+
+widget_api.submitWidget = function(name) {
+  var elements = document.getElementsByName(name)
+  // var elements = document.getElementsByTagName('iframe')
+  var index;
+  for (index = elements.length - 1; index >= 0; index--) {
+    elements[index].parentNode.removeChild(elements[index]);
+  }
+  widget_api.fireCallback("submitWidget", {name: name});
+  return name
+};
+
+window.addEventListener('message', function(event) {
+  if (~event.origin.indexOf("<%= ENV['WIDGET_API_URL'] %>")) {
+    if(typeof event.data === "string") {
+      try {
+        var data = JSON.parse(event.data);
+        var command = data[0];
+        var args = data[1];
+        if (typeof(widget_api[command]) === "function") {
+          widget_api[command].apply(null, args);
+        } else {
+          console.error("widget_api: unknown command '" + command + "'.");
+        }
+      } catch (err) {
+      }
+    }
+  }
+});
+
+widget_api.callbacks = widget_api.callbacks || [];
+
+widget_api.addCallback = function(topic, callback) {
+  widget_api.callbacks.push({topic: topic, callback: callback});
+};
+
+widget_api.removeCallback = function(topic, callback) {
+  for (var i = widget_api.callbacks.length - 1; i >= 0; i--) {
+    if (widget_api.callbacks[i].topic == topic && widget_api.callbacks[i].callback == callback) {
+      widget_api.callbacks.splice(i, 1);
+    }
+  }
+};
+
+widget_api.fireCallback = function(topic, data) {
+  if (!data) data = {};
+
+  setTimeout(function() {
+    for (var i = 0; i < widget_api.callbacks.length; i++) {
+      if (widget_api.callbacks[i].topic == topic) {
+        try {
+          widget_api.callbacks[i].callback(data);
+        }
+        catch (e) {
+        }
+      }
+    }
+  }, 0);
+};
+
+widget_api.queue = widget_api.queue || [];
+
+for (var i = 0; i < widget_api.queue.length; i += 2) {
+  if (typeof(widget_api[widget_api.queue[i]]) === 'function') {
+    widget_api[widget_api.queue[i]].apply(null, widget_api.queue[i+1]);
+  } else {
+    console.error("widget_api: unknown method '" + widget_api.queue[i] + "'.");
+  }
+}
+
+delete widget_api.queue;
+

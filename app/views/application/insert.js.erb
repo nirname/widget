@@ -1,0 +1,21 @@
+(function() {
+  if ("undefined" === typeof widget_api) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "<%= ENV['WIDGET_API_URL'] %>";
+    var target = document.getElementsByTagName("head")[0];
+    target.appendChild(script);
+    widget_api = {};
+    widget_api.queue = [];
+    methods = ['showWidget', 'closeWidget', 'submitWidget', 'addCallback', 'removeCallback'];
+    function enqueue_method(name, args) {
+      return function() {
+        window.widget_api.queue.push(name, arguments);
+      }
+    }
+    for (var i = 0; i < methods.length; i++) {
+      widget_api[methods[i]] = enqueue_method(methods[i]);
+    }
+  }
+})();

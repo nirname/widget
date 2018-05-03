@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+
+html, body {
+  /*background-color: cornflowerBlue;*/
+  /*color: white;*/
+}
+
+fieldset {
+  border: none;
+}
+
+.center {
+  margin: auto;
+  /*width: 50%;*/
+  text-align: center
+  /*border: 3px solid green;*/
+  /*padding: 10px;*/
+}
+
+.w250 {
+  width: 250px;
+}
+
+</style>
+<head>
+  <title>Sample Widget</title>
+</head>
+<body>
+  <div class="center">
+    <form>
+      <h1 class="center w250">Sample</h1>
+      <p class="center w250">Please, rate the quality of service</p>
+      <fieldset class="center w250">
+        <div>
+          <input type="radio" class="radio" name="quality" id="quality-1"  value="1"/>
+          <label for="quality-1">1</label>
+          <input type="radio" class="radio" name="quality" id="quality-2"  value="2"/>
+          <label for="quality-2">2</label>
+          <input type="radio" class="radio" name="quality" id="quality-3"  value="3"/>
+          <label for="quality-3">3</label>
+          <input type="radio" class="radio" name="quality" id="quality-4"  value="4"/>
+          <label for="quality-4">4</label>
+          <input type="radio" class="radio" name="quality" id="quality-5"  value="5"/>
+          <label for="quality-5">5</label>
+        </div>
+      </fieldset>
+      <input type="submit"></input>
+    </form>
+  </div>
+  <button data-widget="close" style="position: absolute; right: 0; top: 0;">X</button>
+  <%= render partial: 'handlers', locals: { widget: widget } %>
+</body>
+</html>

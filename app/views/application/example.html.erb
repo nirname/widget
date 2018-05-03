@@ -1,0 +1,26 @@
+<%= render partial: 'menu' %>
+
+<h2>Example</h2>
+
+<p>The source code of this example can be found at <code>app/views/application/index.html</code></p>
+
+<p>Insert tag <code>script</code> immidiately after opening <code>body</code> tag</p>
+
+<p>
+  <strong>Script url of this examples</strong> is:
+  <pre style="word-break: break-all; width: 500px;"><code><%= api_path(format: :js, params: sample_widget_params, host: app_host, port: app_port, only_path: !Rails.env.producion?) %></code></pre>
+</p>
+
+<h3>Dummy widget</h3>
+<p>Empty widget for test purposes.</p>
+
+<h3>Sample widget</h3>
+<p>
+  <strong>Params:</strong>
+  <pre><code><%= JSON.pretty_generate sample_widget_params %></code></pre>
+</p>
+
+<p>
+  <strong>Options:</strong>
+  <pre><code><%= JSON.pretty_generate Widgets::Sample::Policy.options %></code></pre>
+</p>

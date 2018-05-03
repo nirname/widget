@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+
+html, body {
+  /*background-color: cornflowerBlue;*/
+  /*color: white;*/
+}
+
+fieldset {
+  border: none;
+}
+
+.center {
+  margin: auto;
+  /*width: 50%;*/
+  text-align: center
+  /*border: 3px solid green;*/
+  /*padding: 10px;*/
+}
+
+.w250 {
+  width: 250px;
+}
+
+</style>
+<head>
+  <title>Dummy</title>
+</head>
+<body>
+  <div class="center">
+    <h1 class="center w250">Dummy</h1>
+    <p class="center w250">Empty widget</p>
+  </div>
+  <button data-widget="close" style="position: absolute; right: 0; top: 0;">X</button>
+  <%= render partial: 'handlers', locals: { widget: widget } %>
+</body>
+</html>

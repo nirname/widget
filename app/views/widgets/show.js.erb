@@ -1,0 +1,16 @@
+(function(_document) {
+var options = <%= raw widget.options.to_json %>;
+var iframe = _document.createElement("iframe");
+iframe.style = "opacity: 1; z-index: 999999; margin: 20px; background-color: white; border: 1px solid; display: none; position: absolute;";
+iframe.style.width = options.width.toString() + "px";
+iframe.style.height = options.height.toString() + "px";
+iframe.src = "<%= widget_url(widget.name, host: 'localhost:4000') %>";
+iframe.frameBorder = 0;
+iframe.name = "<%= widget.name %>";
+_document.body.insertBefore(iframe, _document.body.firstChild); // TODO: add only after iframe is loaded
+// _document.body.insertBefore(iframe, _document.body.lastChild.nextSibling);
+setTimeout(function(){
+  iframe.style.display = 'inline';
+  widget_api.fireCallback("showWidget", {name: iframe.name});
+}, options.delay);
+})(document);

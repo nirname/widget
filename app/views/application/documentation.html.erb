@@ -1,0 +1,55 @@
+<%= render partial: 'menu' %>
+<h2>Документация</h2>
+
+<h3>Показать виджет</h3>
+
+<pre>
+  <code>
+    showWidget(name)
+
+    name - строка, имя виджета
+  </code>
+</pre>
+
+<h3>Закрыть виджет</h3>
+
+<pre>
+  <code>
+    closeWidget(name)
+
+    name - строка, имя виджета
+  </code>
+</pre>
+
+<h3>Отправить виджет</h3>
+
+<pre>
+  <code>
+    submitWidget(name)
+
+    name - строка, имя виджета
+  </code>
+</pre>
+
+<h3>Добавить коллбэк</h3>
+
+<pre>
+  <code>
+    addCallback(topic, callback)
+
+    topic - строка, имя коллбэка
+    возможные значения
+
+    closeWidget
+    submitWidget
+    showWidget
+  </code>
+</pre>
+
+<h3>Убрать коллбэк</h3>
+
+<pre>
+  <code>
+    removeCallback(topic, callback)
+  </code>
+</pre>

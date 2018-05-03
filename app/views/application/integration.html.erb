@@ -1,0 +1,13 @@
+<%= render partial: 'menu' %>
+
+<h2>Интеграция</h2>
+
+<p>Вставьте на страницу сразу перед закрывающимся тегом <code>head</code> тег <code>script</code> со следующим содержимым:</p>
+
+<pre style="word-break: break-all; width: 500px;"><code><%= render file: Rails.root.join('app', 'views', 'application', 'insert.js.erb') %> </pre></code>
+
+<p>
+  <code>widget_api_url</code> должен содержать полный пусть к <code>api.js</code>, например:
+</p>
+
+<pre><code>localhost:4000/api.js</code></pre>
